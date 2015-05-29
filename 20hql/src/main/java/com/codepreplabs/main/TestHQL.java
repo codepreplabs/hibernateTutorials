@@ -17,11 +17,16 @@ public class TestHQL {
 
 	public static void main(String[] args) {
 
-		// selectAll();
+//		 selectAll();
 
-		// whereClause();
+//		 whereClause();
 
-		// innerJoin();
+//		 innerJoin();
+
+//		onlyFirstNames();
+		
+		aggregateFunctions();
+		
 	}
 
 	/**
@@ -44,6 +49,9 @@ public class TestHQL {
 
 	}
 
+	/**
+	 * method to demonstrate a query with use of WHERE clause
+	 */
 	public static void whereClause() {
 
 		Session session = sessionFactory.openSession();
@@ -60,6 +68,9 @@ public class TestHQL {
 		session.close();
 	}
 
+	/**
+	 * method to demonstrate a query for an Inner join.
+	 */
 	public static void innerJoin() {
 
 		Session session = sessionFactory.openSession();
@@ -68,15 +79,44 @@ public class TestHQL {
 
 		List<Object> result = (List<Object>) query.list();
 		Iterator itr = result.iterator();
-		
-		while(itr.hasNext()){
+
+		while (itr.hasNext()) {
 			Object[] obj = (Object[]) itr.next();
 			String client = String.valueOf(obj[0]);
 			System.out.println(client);
 			client = String.valueOf(obj[1]);
 			System.out.println(client);
+			client = String.valueOf(obj[2]);
+			System.out.println(client);
 		}
 
 		session.close();
 	}
+
+	public static void onlyFirstNames() {
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("SELECT firstName FROM Employee");
+
+		List<String> firstNames = query.list();
+
+		for (String firstname : firstNames) {
+			System.out.println(firstname);
+		}
+
+		session.close();
+	}
+
+	public static void aggregateFunctions() {
+
+		Session session = sessionFactory.openSession();
+		Query query = session
+				.createQuery("SELECT max(employeeId) FROM Employee");
+
+		List<Integer> maxValue = query.list();
+		for(Integer value: maxValue)
+			System.out.println(value.intValue());
+
+		session.close();
+	}
+
 }
