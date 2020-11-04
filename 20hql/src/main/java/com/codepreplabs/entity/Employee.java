@@ -19,7 +19,7 @@ public class Employee {
 
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "department_Id")
-	private Department department = new Department();
+	private Department department;
 
 	public int getEmployeeId() {
 		return employeeId;
