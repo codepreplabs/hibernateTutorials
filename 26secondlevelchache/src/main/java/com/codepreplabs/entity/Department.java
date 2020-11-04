@@ -11,20 +11,20 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Department {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int department_Id;
+	private int departmentId;
 	private String departmentName;
 
-	public int getDepartment_Id() {
-		return department_Id;
+	public int getDepartmentId() {
+		return departmentId;
 	}
 
-	public void setDepartment_Id(int department_Id) {
-		this.department_Id = department_Id;
+	public void setDepartmentId(int departmentId) {
+		this.departmentId = departmentId;
 	}
 
 	public String getDepartmentName() {

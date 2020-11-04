@@ -11,11 +11,11 @@ public class SetupTables {
 	public static void main(String[] args) {
 		
 		Department department1 = new Department();
-		department1.setDepartment_Id(10);
+		department1.setDepartmentId(10);
 		department1.setDepartmentName("Computer Science");
 		
 		Department department2 = new Department();
-		department2.setDepartment_Id(20);;
+		department2.setDepartmentId(20);;
 		department2.setDepartmentName("Mechanical Engineering");
 		
 		Configuration configuration = new Configuration().configure();

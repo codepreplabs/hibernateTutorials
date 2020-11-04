@@ -25,7 +25,7 @@ public class TestHibernateCache {
 		session2.get(Department.class, 1);
 		session2.getTransaction().commit();
 		session2.close();
-		
+		factory.close();
 	}
 
 }
