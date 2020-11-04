@@ -1,6 +1,5 @@
 package com.codepreplabs.entity;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +9,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
-@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Department {
 
