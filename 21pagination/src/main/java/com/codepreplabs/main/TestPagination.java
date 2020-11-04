@@ -2,7 +2,7 @@ package com.codepreplabs.main;
 
 import java.util.List;
 
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -12,10 +12,9 @@ public class TestPagination {
 
 	public static void main(String[] args) {
 
-		try {
+		SessionFactory sessionFactory = HibernateUtil.getSessionfactory();
+		try (Session session = sessionFactory.openSession()) {
 
-			SessionFactory sessionFactory = HibernateUtil.getSessionfactory();
-			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			Query query = session.createQuery("SELECT firstName FROM Employee");
 
@@ -27,7 +26,6 @@ public class TestPagination {
 				System.out.println(firstname);
 
 			session.getTransaction().commit();
-			session.close();
 		} catch (Throwable e) {
 			System.out.println(e.getMessage());
 		}

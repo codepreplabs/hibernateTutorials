@@ -10,7 +10,7 @@ import org.hibernate.cfg.Configuration;
 import com.codepreplabs.entity.Department;
 import com.codepreplabs.entity.Employee;
 
-public class TestHibernate {
+public class DataPopulator {
 
 	public static void main(String[] args) {
 		
