@@ -2,9 +2,13 @@ package com.codepreplabs.main;
 
 import java.util.List;
 
-import org.hibernate.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import com.codepreplabs.entity.Employee;
 import com.codepreplabs.util.HibernateUtil;
@@ -13,64 +17,37 @@ public class TestHibernate {
 
 	public static void main(String[] args) {
 
-		namedHQLQuery();
+		criteriaQuery();
 
-		namedNativeSQLQuery();
 	}
 
 	/**
 	 * example for a named HQL query.
 	 */
-	public static void namedHQLQuery() {
+	@SuppressWarnings("unchecked")
+	public static void criteriaQuery() {
 
 		String firstName = "Jessica";
-		try {
+		SessionFactory sessionFactory = HibernateUtil.getSessionfactory();
 
-			SessionFactory sessionFactory = HibernateUtil.getSessionfactory();
-			Session session = sessionFactory.openSession();
+		try (Session session = sessionFactory.openSession()) {
+
 			session.beginTransaction();
 
-			Query query = session.getNamedQuery("Employee.byFirstName");
+			CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+			CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+			Root<Employee> root = criteriaQuery.from(Employee.class);
+			criteriaQuery.select(root);
+			Query<Employee> q = session.createQuery(criteriaQuery);
 
-			query.setString("firstName", firstName);
-
-			List<Employee> employees = query.list();
+			List<Employee> employees = q.getResultList();
 			for (Employee employee : employees)
 				System.out.println(employee.getFirstName());
 
 			session.getTransaction().commit();
-			session.close();
-		} catch (Throwable e) {
+
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
-
-	/**
-	 * example for Named native sql query.
-	 */
-	public static void namedNativeSQLQuery() {
-
-		String lastName = "shaw";
-		try {
-
-			SessionFactory sessionFactory = HibernateUtil.getSessionfactory();
-			Session session = sessionFactory.openSession();
-			session.beginTransaction();
-
-			Query query = session.getNamedQuery("Employee.byLastName");
-
-			query.setString(0, lastName);
-
-			List<Employee> employees = query.list();
-			for (Employee employee : employees)
-				System.out.println(employee.getFirstName());
-
-			session.getTransaction().commit();
-			session.close();
-		} catch (Throwable e) {
-			System.out.println(e.getMessage());
-		}
-
-	}
-
 }
