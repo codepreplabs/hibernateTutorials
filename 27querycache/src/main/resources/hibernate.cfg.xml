@@ -4,15 +4,19 @@
 		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 		
 <hibernate-configuration>
-    <session-factory name="sessionFactory">
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">abstract1@3</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hbm2ddl.auto">create</property>
-        <property name="show_sql">true</property>
-        
-        <mapping class="com.codepreplabs.entity.Employee"/>
-    </session-factory>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.password">hibernate@123</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate</property>
+		<property name="hibernate.connection.username">hibernateuser</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<property name="hbm2ddl.auto">create</property>
+		<property name="show_sql">true</property>
+
+		<property name="cache.use_second_level_cache">true</property>
+		<property name="cache.use_query_cache">true</property>
+		<property name="cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+
+		<mapping class="com.codepreplabs.entity.Department" />
+	</session-factory>
 </hibernate-configuration>
