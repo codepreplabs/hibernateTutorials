@@ -2,7 +2,7 @@ package com.codepreplabs.main;
 
 import java.util.List;
 
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -13,7 +13,7 @@ public class TestHibernate {
 
 	public static void main(String[] args) {
 
-		namedHQLQuery();
+//		namedHQLQuery();
 
 		namedNativeSQLQuery();
 	}
@@ -21,26 +21,25 @@ public class TestHibernate {
 	/**
 	 * example for a named HQL query.
 	 */
+	@SuppressWarnings("unchecked")
 	public static void namedHQLQuery() {
 
 		String firstName = "Jessica";
-		try {
+		SessionFactory sessionFactory = HibernateUtil.getSessionfactory();
 
-			SessionFactory sessionFactory = HibernateUtil.getSessionfactory();
-			Session session = sessionFactory.openSession();
+		try (Session session = sessionFactory.openSession()) {
 			session.beginTransaction();
 
-			Query query = session.getNamedQuery("Employee.byFirstName");
+			Query<Employee> query = session.getNamedQuery("Employee.byFirstName");
 
-			query.setString("firstName", firstName);
+			query.setParameter("firstName", firstName);
 
-			List<Employee> employees = query.list();
+			List<Employee> employees = query.getResultList();
 			for (Employee employee : employees)
 				System.out.println(employee.getFirstName());
 
 			session.getTransaction().commit();
-			session.close();
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -48,6 +47,7 @@ public class TestHibernate {
 	/**
 	 * example for Named native sql query.
 	 */
+	@SuppressWarnings({ "unchecked" })
 	public static void namedNativeSQLQuery() {
 
 		String lastName = "shaw";
@@ -57,11 +57,11 @@ public class TestHibernate {
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 
-			Query query = session.getNamedQuery("Employee.byLastName");
+			Query<Employee> query = session.getNamedQuery("Employee.byLastName");
 
-			query.setString(0, lastName);
+			query.setParameter(1, lastName);
 
-			List<Employee> employees = query.list();
+			List<Employee> employees = query.getResultList();
 			for (Employee employee : employees)
 				System.out.println(employee.getFirstName());
 
