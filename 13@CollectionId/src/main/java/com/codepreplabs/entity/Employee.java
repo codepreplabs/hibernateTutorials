@@ -25,7 +25,7 @@ import com.codeprep.vo.AddressVO;
 public class Employee {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int employeeId;
 	private String firstName;
 	private String lastname;
@@ -35,8 +35,8 @@ public class Employee {
 
 	@ElementCollection
 	@JoinTable(name = "USER_ADDRESS", joinColumns = @JoinColumn(name = "USER_ID"))
-	@GenericGenerator(name = "hilo-gen", strategy = "hilo")
-	@CollectionId(columns = { @Column(name = "ADDRESS_ID") }, generator = "hilo-gen", type = @Type(type = "long"))
+	@GenericGenerator(name="sequence-gen",strategy="sequence")
+	@CollectionId(columns = { @Column(name = "ADDRESS_ID") }, generator = "sequence", type = @Type(type = "long"))
 	private List<AddressVO> Addresses = new ArrayList<AddressVO>();
 
 	public List<AddressVO> getAddresses() {
