@@ -8,8 +8,8 @@ Coded using Java 1.8 and MySQL 8.0.16
 The hibernate.cfg.xml present in the resource folder assumes that it connecting to a MySQL database
 with the below credentials
 
-Database name: hibernate
-user name: hibernateuser
-password: hibernate@123
+Database name: hibernate </br>
+user name: hibernateuser </br>
+password: hibernate@123 </br>
 
 In case of different databases and associated configurations. The hibernate.cfg.xml file can be updated to run the examples.
